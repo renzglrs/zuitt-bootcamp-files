@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Attributes and Links</title>
+  </head>
+  <body>
+    <h2 id="top">HTML Attributes</h2>
+
+    <!-- 
+        align - changes the alignment of the paragraph (Left, center, right) 
+    -->
+    <p align="center"><em>Modifiers of element behavior</em></p>
+
+    <h2>HTML Images</h2>
+    <p>
+      <em
+        >An image can be shown using &lt;img&gt; tag alonog with its
+        <strong>src</strong> attribute</em
+      >
+    </p>
+
+    <!-- img - adds an image using absolute link -->
+    <img src="https://placedog.net/400/281?id=117" alt="This is a dog photo." />
+
+    <!-- code tag -->
+    <p>
+      <code>&lt; img src="https://placedog.net/400/281?id=117" alt="This is a dog
+        photo." &gt;</code>
+    </p>
+
+    <!-- Adds an image using relative link -->
+    <img src="./images/me.jpg" width="200px" />
+
+    <p>
+      <code>&lt; img src="./images/me.jpg" &gt;</code>
+    </p>
+
+    <p>Valid image extensions are the following:</p>
+
+    <ol type="a" reversed>
+      <li>png</li>
+      <li>jpg</li>
+      <li>gif</li>
+      <li>svg</li>
+      <li>webp</li>
+    </ol>
+
+
+    <h2>HTML Links</h2>
+
+    <h4>Absolute Link</h4>
+
+    <a href="https://zuitt.co/" target="_blank">I'm a hyperlink</a>
+
+    <h4> Relative Link</h4>
+    <!-- Redirects to link.html file -->
+    <p>Go to <a href="./link.html">link.html</a> page</p>
+    
+    <!-- Redirects to images/index.html -->
+    <p>Go to <a href="./images/index.html">images/index</a> page</p>
+
+    <!-- Redirects to the id -->
+    <p>Go to <a href="#top">top</a></p>
+
+
+
+
+  </body>
+</html>
