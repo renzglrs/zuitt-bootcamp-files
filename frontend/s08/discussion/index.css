@@ -1,0 +1,86 @@
+/* 
+
+CSS Rules : Syntax
+selector {
+    property: value;
+}
+
+*/
+
+/* Type Selector */
+h1 {
+    color: blue !important;
+    text-align: center;
+    font-size: 2rem;
+}
+
+/* Universal selector */
+* {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+/* ID Selector: #id-name */
+#zuitt-motto {
+    letter-spacing: 5px;
+}
+
+/* will not work because #zuit-motto (id) has a higher priority */
+h3 {
+    letter-spacing: 25px;
+}
+
+/* Class Selector: .class-name */
+.offering-item {
+    text-transform: uppercase;
+}
+
+/* Adjacent Sibling Selector */
+h3 + img {
+    height: 300px;
+    width: 300px;
+    border-radius: 150px;
+}
+
+/* Decendant Selector: selector selector */
+#bootcamp-learning-list li {
+    color: #075966;
+}
+
+/* General Sibling Selector: selector ~ */
+h2 ~ a {
+    text-decoration: none;
+}
+
+.modules {
+    letter-spacing: 3px;
+}
+
+body {
+    background-color: skyblue;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+nav {
+    background-color: white;
+}
+
+div {
+    float: right;
+}
+
+section {
+    height: 100vh;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+ol {
+    list-style-type: none;
+    padding: 0;
+}
