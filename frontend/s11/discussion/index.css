@@ -1,0 +1,77 @@
+/*  CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 500vh;
+}
+
+.img-float {
+    width: 250px;
+    height: 250px;
+    float: inherit;
+}
+
+/* CSS Positioning */
+.parent-element {
+    background-color: skyblue;
+    padding: 50px 10px;
+    position: relative;
+    height: 800px;
+}
+
+.child-one {
+    background-color: gray;
+    padding: 10px;
+}
+
+.child-two {
+    background-color: yellow;
+    padding: 10px;
+    top: 10px;
+    position: sticky;
+}
+
+.child-three {
+    background-color: gray;
+    padding: 10px;
+}
+
+/* Z-Index */
+.container {
+    position: relative;
+}
+
+.black-box {
+    position: relative;
+    border: 2px solid black;
+    height: 100px;
+    margin: 30px;
+    z-index: 0;
+}
+
+.gray-box {
+    position: absolute;
+    background-color: lightgray;
+    height: 60px;
+    width: 70%;
+    left: 50px;
+    top: 50px;
+    z-index: -1;
+}
+
+.green-box {
+    position: absolute;
+    background-color: lightgreen;
+    width: 35%;
+    height: 100px;
+    left: 270px;
+    top: -15px;
+    z-index: 2;
+}
+
+
+
