@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap - Layout and Best Practices</title>
+
+    <!-- BS Connection -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <!-- 
+
+        Before: BS 4.0+
+        r -> right
+        l -> left
+        mr = margin right
+        ml = margin left
+
+        After: BS 5.0+
+        s -> start (left)
+        e -> end (right)
+
+        ms = margin start
+        me = margin end
+
+        x -> combination of start and end (left and right)
+        y -> combination of top and bottom
+
+     -->
+
+    <!-- <div style="width: 500px;" class="m-5 mx-auto d-grid gap-5">
+        <div class="p-2 bg-light border border-dark ms-5">Item 1</div>
+        <div class="p-2 bg-light border border-dark me-5">Item 2</div>
+        <div class="p-2 bg-light border border-dark mx-5">Item 3</div>
+    </div> -->
+
+
+
+    <main class="container">
+        <header class="row mt-5">
+            <div class="col-12">
+                <h1 class="text-center">Welcome to my Website</h1>
+            </div>
+        </header>
+
+        <nav class="d-flex justify-content-center bg-warning p-2 gap-5">
+            <div>Home</div>
+            <div>About</div>
+            <div>Contact</div>
+        </nav>
+
+        <section class="row mt-5">
+            <figure class="col-lg-6">
+                <div>
+                    <img src="https://placekitten.com/408/287" class="img-fluid">
+                </div>
+            </figure>
+            <figcaption class="col-lg-6">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium dicta, perferendis officiis neque recusandae voluptatem dolore quam? Sequi itaque deleniti quis eveniet harum necessitatibus nulla, suscipit vitae dicta architecto cupiditate!
+                Temporibus repellendus eum perferendis corporis aliquid voluptatem aperiam! Distinctio quasi in tempore natus pariatur quaerat minus porro saepe obcaecati. Doloremque voluptatum saepe velit minus hic illo! Provident dolores deserunt iure!</p>
+            </figcaption>
+        </section>
+
+        <section class="row mt-5 text-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="p-5 border border-warning">Feature 1</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="p-5 border border-warning">Feature 2</div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="p-5 border border-warning">Feature 3</div>
+            </div>
+        </section>
+
+        <footer class="d-flex justify-content-center m-5 d-grid gap-3">
+            <div>Footer</div>
+            <div>|</div>
+            <div>Term of Use</div>
+            <div>|</div>
+            <div>Copyright 2023</div>
+        </footer>
+
+    </main>
+
+
+
+
+    <!-- BS Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
