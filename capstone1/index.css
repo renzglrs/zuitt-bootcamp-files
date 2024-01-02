@@ -34,7 +34,7 @@ body {
 .tools-card {
     padding: 5rem;
     /* background: radial-gradient(circle at 47% 117%,#8e8e8e, #c1c1c1, #f4f4f4); */
-    background-color: #a6aae7;
+    background: radial-gradient(circle at 50% 50%,#fbfbfb, #eaeaea, rgba(217,217,217,1))
 }
 
 .tool-image {
