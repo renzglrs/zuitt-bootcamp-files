@@ -26,6 +26,7 @@ nav .container-fluid {
     background: linear-gradient(rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.59)),url("./images/landing.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
 }
 
 #landing-title {
@@ -52,6 +53,10 @@ nav .container-fluid {
 }
 
 /* Gallery */
+#gallery {
+    color: #765C3D;
+}
+
 #gallery .row {
     margin-top: 10.44rem;
 }
@@ -74,4 +79,10 @@ nav .container-fluid {
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+}
+
+.gallery-card-body img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 25.0625rem;
 }
