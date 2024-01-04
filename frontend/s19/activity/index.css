@@ -82,7 +82,13 @@ nav .container-fluid {
 }
 
 .gallery-card-body img {
-    background-size: cover;
     background-repeat: no-repeat;
+    background-size: contain;
     height: 25.0625rem;
+}
+
+.carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
 }
