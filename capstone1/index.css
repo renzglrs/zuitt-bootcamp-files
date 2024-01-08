@@ -1,12 +1,46 @@
 /* CDN Font */
 @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
+/*=============== VARIABLES CSS ===============*/
+
 :root {
   /* Light theme colors */
   --primary-color: #1d1d1f;
   --secondary-color: #969696;
   --tertiary-color: #ececec;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  /*
+      Blue: hsl(207, 90%, 61%)
+      Purple: hsl(250, 66%, 75%)
+      Pink: hsl(356, 66%, 75%)
+      Teal: hsl(174, 63%, 62%)
+  */
+
+  --hue: 207;
+  --sat: 90%;
+  --lig: 61%;
+
+  --first-color: hsl(var(--hue), var(--sat), var(--lig));
+  --first-color-alt: hsl(var(--hue), var(--sat), 57%); /* -4% */
+  --title-color: hsl(var(--hue), 12%, 15%);
+  --text-color: hsl(var(--hue), 12%, 45%);
+  --text-color-light: hsl(var(--hue), 8%, 75%);
+  --text-color-lighten: hsl(var(--hue), 8%, 92%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --container-color: #fff;
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.75rem;
 }
+/*=============== BASE ===============*/
 
 body {
   font-family: "SF Pro Display", sans-serif;
@@ -14,20 +48,14 @@ body {
   /* font-family: 'Roboto', sans-serif; */
 }
 
+/*=============== REUSABLE CSS CLASSES ===============*/
+
 .divider {
   margin: 3rem auto;
   height: 4rem;
 }
 
-/* PROJECTS */
-
-.project-img img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  /* box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2); */
-}
-
+/*=============== LANDING ===============*/
 .landing-button {
   width: 65px;
   height: 65px;
@@ -37,6 +65,61 @@ body {
   background: radial-gradient(circle at 50% 50%, #b8cdf4, #b6caea, #b7c7de);
   /* background: radial-gradient(circle at 50% 50%,rgba(160, 160, 160, 1), rgba(213,213,213,1)) */
 }
+
+/*=============== PROJECTS ===============*/
+.project_card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.project_card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projects__modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* bottom: 0 - to show, bottom: -100% - to hide */
+  bottom: -100%;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    hsla(var(--hue), 24%, 40%, 0.3) 0%,
+    hsla(var(--hue), 24%, 4%, 1) 95%
+  );
+  display: grid;
+  align-items: flex-end;
+  padding: 1.5rem 1.25rem;
+  transition: 0.3s;
+}
+
+.projects__subtitle,
+.projects__title {
+  color: #fff;
+}
+
+.projects__subtitle {
+  font-size: var(--smaller-font-size);
+}
+
+.projects__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.75rem;
+}
+
+.projects__button {
+  padding: 0.5rem;
+}
+
+.project-card:hover .projects__modal {
+  bottom: 0;
+}
+
+/*=============== TOOLS ===============*/
 
 .tools-card {
   padding: 5rem;
@@ -55,6 +138,7 @@ body {
   /* aspect-ratio: 2/2; */
 }
 
+/*=============== FOOTER ===============*/
 .footer-card {
   /* background: radial-gradient(circle at 23% 125%,#c7e6cd, rgba(220, 231, 213, 1), #edef95); */
   background: radial-gradient(
