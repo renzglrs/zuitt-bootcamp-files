@@ -1,65 +1,66 @@
 /* CDN Font */
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
 :root {
-
-    /* Light theme colors */
-    --primary-color: #1D1D1F;
-    --secondary-color: #969696;
-    --tertiary-color: #ECECEC;
+  /* Light theme colors */
+  --primary-color: #1d1d1f;
+  --secondary-color: #969696;
+  --tertiary-color: #ececec;
 }
-
 
 body {
-    font-family: 'SF Pro Display', sans-serif;
-    /* font-family: 'Poppins', sans-serif;                                             */
-    /* font-family: 'Roboto', sans-serif; */
+  font-family: "SF Pro Display", sans-serif;
+  /* font-family: 'Poppins', sans-serif;                                             */
+  /* font-family: 'Roboto', sans-serif; */
 }
-
-
-
 
 .divider {
-    margin: 3rem auto;
-    height: 4rem;
+  margin: 3rem auto;
+  height: 4rem;
 }
-
 
 /* PROJECTS */
 
-.project-img img{
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    /* box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2); */
+.project-img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  /* box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2); */
 }
 
-
-
 .landing-button {
-    width: 65px;
-    height: 65px;
+  width: 65px;
+  height: 65px;
 }
 
 .about-card {
-    background: radial-gradient(circle at 50% 50%,#b8cdf4, #b6caea, #b7c7de);
-    /* background: radial-gradient(circle at 50% 50%,rgba(160, 160, 160, 1), rgba(213,213,213,1)) */
+  background: radial-gradient(circle at 50% 50%, #b8cdf4, #b6caea, #b7c7de);
+  /* background: radial-gradient(circle at 50% 50%,rgba(160, 160, 160, 1), rgba(213,213,213,1)) */
 }
 
-
 .tools-card {
-    padding: 5rem;
-    /* background: radial-gradient(circle at 47% 117%,#8e8e8e, #c1c1c1, #f4f4f4); */
-    background: radial-gradient(circle at 50% 50%,#fbfbfb, #eaeaea, rgba(217,217,217,1))
+  padding: 5rem;
+  /* background: radial-gradient(circle at 47% 117%,#8e8e8e, #c1c1c1, #f4f4f4); */
+  background: radial-gradient(
+    circle at 50% 50%,
+    #fbfbfb,
+    #eaeaea,
+    rgba(217, 217, 217, 1)
+  );
 }
 
 .tool-image {
-    height: 5rem;
-    /* width: 10%; */
-    /* aspect-ratio: 2/2; */
+  height: 5rem;
+  /* width: 10%; */
+  /* aspect-ratio: 2/2; */
 }
 
 .footer-card {
-    /* background: radial-gradient(circle at 23% 125%,#c7e6cd, rgba(220, 231, 213, 1), #edef95); */
-    background: radial-gradient(circle at 10% 72%,rgba(193, 230, 198, 0.61), rgba(242, 235, 235, 1), rgba(241, 251, 167, 1))
+  /* background: radial-gradient(circle at 23% 125%,#c7e6cd, rgba(220, 231, 213, 1), #edef95); */
+  background: radial-gradient(
+    circle at 10% 72%,
+    rgba(193, 230, 198, 0.61),
+    rgba(242, 235, 235, 1),
+    rgba(241, 251, 167, 1)
+  );
 }
