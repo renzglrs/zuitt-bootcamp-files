@@ -1,26 +1,184 @@
 /* CDN Font */
 @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
+/*=============== VARIABLES CSS ===============*/
+
 :root {
   /* Light theme colors */
   --primary-color: #1d1d1f;
   --secondary-color: #969696;
   --tertiary-color: #ececec;
 
-  /* Sizing */
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  /*
+      Blue: hsl(207, 90%, 61%)
+      Purple: hsl(250, 66%, 75%)
+      Pink: hsl(356, 66%, 75%)
+      Teal: hsl(174, 63%, 62%)
+  */
+
+  --hue: 207;
+  --sat: 90%;
+  --lig: 61%;
+
+  --first-color: hsl(var(--hue), var(--sat), var(--lig));
+  --first-color-alt: hsl(var(--hue), var(--sat), 57%); /* -4% */
+  --title-color: hsl(var(--hue), 12%, 15%);
+  --text-color: hsl(var(--hue), 12%, 45%);
+  --text-color-light: hsl(var(--hue), 8%, 75%);
+  --text-color-lighten: hsl(var(--hue), 8%, 92%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --container-color: #fff;
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "SF Pro Display", sans-serif;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.75rem;
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  transition: 0.3s; /* For animation dark mode */
+}
+
+h1,
+h2,
+h3 {
+  color: var(--title-color);
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
   font-family: "SF Pro Display", sans-serif;
   /* font-family: 'Poppins', sans-serif;                                             */
   /* font-family: 'Roboto', sans-serif; */
-  /* background-color: #252525; */
 }
 
-#landing {
-  margin-top: 3.5rem;
+/*=============== REUSABLE CSS CLASSES ===============*/
+
+.divider {
+  margin: 3rem auto;
+  height: 4rem;
 }
 
-#about-card {
-  max-height: 350px;
+/*=============== LANDING ===============*/
+.landing-button {
+  width: 65px;
+  height: 65px;
+}
+
+.about-card {
+  background: radial-gradient(circle at 50% 50%, #b8cdf4, #b6caea, #b7c7de);
+  /* background: radial-gradient(circle at 50% 50%,rgba(160, 160, 160, 1), rgba(213,213,213,1)) */
+}
+
+/*=============== PROJECTS ===============*/
+.project_card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.project_card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projects__modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* bottom: 0 - to show, bottom: -100% - to hide */
+  bottom: -100%;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    hsla(var(--hue), 24%, 40%, 0.3) 0%,
+    hsla(var(--hue), 24%, 4%, 1) 95%
+  );
+  display: grid;
+  align-items: flex-end;
+  padding: 1.5rem 1.25rem;
+  transition: 0.3s;
+}
+
+.projects__subtitle,
+.projects__title {
+  color: #fff;
+}
+
+.projects__subtitle {
+  font-size: var(--smaller-font-size);
+}
+
+.projects__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.75rem;
+}
+
+.projects__button {
+  padding: 0.5rem;
+}
+
+.project-card:hover .projects__modal {
+  bottom: 0;
+}
+
+/*=============== TOOLS ===============*/
+
+.tools-card {
+  padding: 5rem;
+  /* background: radial-gradient(circle at 47% 117%,#8e8e8e, #c1c1c1, #f4f4f4); */
+  background: radial-gradient(
+    circle at 50% 50%,
+    #fbfbfb,
+    #eaeaea,
+    rgba(217, 217, 217, 1)
+  );
+}
+
+.tool-image {
+  height: 5rem;
+  /* width: 10%; */
+  /* aspect-ratio: 2/2; */
+}
+
+/*=============== FOOTER ===============*/
+.footer-card {
+  /* background: radial-gradient(circle at 23% 125%,#c7e6cd, rgba(220, 231, 213, 1), #edef95); */
+  background: radial-gradient(
+    circle at 10% 72%,
+    rgba(193, 230, 198, 0.61),
+    rgba(242, 235, 235, 1),
+    rgba(241, 251, 167, 1)
+  );
 }
