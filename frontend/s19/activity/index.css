@@ -1,94 +1,93 @@
-
-
 /* Navbar */
 nav img {
-    width: 3.0395rem;
-    height: 2.75rem;
-    flex-shrink: 0;
+  width: 3.0395rem;
+  height: 2.75rem;
+  flex-shrink: 0;
 }
 
 nav .container-fluid {
-    background-color: #765C3D;
+  background-color: #765c3d;
 }
 
 .nav-link {
-    color: #F2D2AE;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+  color: #f2d2ae;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 /* Landing */
 #landing {
-    background: linear-gradient(rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.59)),url("./images/landing.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.59)),
+    url("./images/landing.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
 }
 
 #landing-title {
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 4rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 4.5rem; /* 112.5% */
-    letter-spacing: -0.08rem;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 4.5rem; /* 112.5% */
+  letter-spacing: -0.08rem;
 }
 
 #landing-text {
-    color: #FFF;
-    font-family: Montserrat;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.875rem; /* 125% */
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.875rem; /* 125% */
 }
 
 #landing-button {
-    background-color: #B59066;
+  background-color: #b59066;
 }
 
 /* Gallery */
 #gallery {
-    color: #765C3D;
+  color: #765c3d;
 }
 
 #gallery .row {
-    margin-top: 10.44rem;
+  margin-top: 10.44rem;
 }
 
 #gallery-title {
-    color: #765C3D;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 2.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: #765c3d;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .gallery-text {
-    color: #765C3D;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
+  color: #765c3d;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }
 
 .gallery-card-body img {
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 25.0625rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 25.0625rem;
 }
 
 .carousel-indicators button {
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
 }

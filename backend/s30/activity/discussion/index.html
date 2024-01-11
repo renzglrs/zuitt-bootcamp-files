@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S30 - Javascript - Reactive DOM with Fetch</title>
+  </head>
+  <body>
+    <button id="clicker">Click Me!</button>
+
+    <h1>Create New Post</h1>
+    <form action="#" id="form-add-post">
+      <span>Title</span><br />
+      <input type="text" id="txt-title" /><br />
+
+      <span>Body</span><br />
+      <textarea id="txt-body"></textarea><br />
+
+      <button type="submit">Create Post</button>
+    </form>
+
+    <h1>Edit Post</h1>
+    <form action="#" id="form-edit-post">
+      <input type="text" id="txt-edit-id" hidden /><br />
+      <span>Title</span><br />
+      <input type="text" id="txt-edit-title" /><br />
+
+      <span>Body</span><br />
+      <textarea id="txt-edit-body"></textarea><br />
+
+      <button type="submit" id="btn-submit-update" disabled>Edit Post</button>
+    </form>
+
+    <h1>Posts</h1>
+
+    <!-- we will use this div as the container of our posts -->
+    <div id="div-post-entries"></div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
