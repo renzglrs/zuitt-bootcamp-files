@@ -1,0 +1,9 @@
+{
+  "_id": "123dfadsfs",
+  "name": "Web Development Course",
+  "description": "MERN stack",
+  "enrollees": ["user1", "user2", "user3"],
+  "slots": 30,
+  "isActive": true,
+  "price": 60000
+}

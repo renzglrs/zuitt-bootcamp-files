@@ -1,0 +1,10 @@
+{
+  "_id": "12543ajfhdjkshf98",
+  "firstName": "Jason",
+  "lastName": "Derulo",
+  "email": "jasonderulo@gmail.com",
+  "password": "user1234",
+  "isAdmin": true,
+  "mobileNumber": "09123456789",
+  "enrollments": ["4234fadsfsd", "4543afdsafdsf"]
+}
