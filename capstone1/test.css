@@ -95,9 +95,16 @@ body {
   height: 65px;
 }
 
+/*=============== ABOUT ===============*/
 .about-card {
   background: radial-gradient(circle at 50% 50%, #b8cdf4, #b6caea, #b7c7de);
   /* background: radial-gradient(circle at 50% 50%,rgba(160, 160, 160, 1), rgba(213,213,213,1)) */
+}
+
+#about img {
+  width: 100%;
+  /* height: 300px; */
+  object-fit: contain;
 }
 
 /*=============== PROJECTS ===============*/
@@ -110,7 +117,7 @@ body {
 
 .project_card img {
   width: 100%;
-  height: 400px;
+  height: 420px;
   /* max-height: 400px; */
   object-fit: cover;
 }

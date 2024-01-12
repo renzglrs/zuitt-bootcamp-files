@@ -142,7 +142,9 @@ console.log(`Sum of 1 + 2 = ${total}`);
 // arrow function with implicit return statement
 // consumes one line, hence, you can only use one javascript expression
 // const addition = (x, y) => (/* return */ x > y ? "true" : "false");
+
 const addition = (x, y) => /* return */ x + y;
+
 console.log(`Sum of 1 + 2 = ${addition(1, 2)}`);
 
 // [SECTION] default function argument value
