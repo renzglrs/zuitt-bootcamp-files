@@ -1,0 +1,83 @@
+/* 
+
+Introduction to Express.js and REST
+
+API - Application Programming Interface
+    - The part of a server responsible for receiving requests and sending responses
+    
+    What is it for?
+        - hides the server beneath an interface layer
+            - hidden complexity males apps easier to use
+            - sets the rules of interaction between front and bacn ends of an application, improving security
+        - handles the exchange of requests and responses between a client and server
+
+    What is REST?
+        - REpresentational State Transfer
+        - an architectural style of providing standards for communication between computer systems
+
+        What problem does it solve?
+            - the need to separate user interface concerns of the client from data storage concerns of the server
+        
+        How does it solve the problem?
+            Statelessness
+                - server does not need to know client state and vice versa
+                - every client request has all the information it needs to be processed by the API
+                - made possible via resources and HTTP methods
+
+            Standardized Communication
+                - enables decoupled server to understand, pricess, and respond client requests WITHOUT knowing client state
+                - implemented via resources represented as Uniform Resource Idntifier (URI) endpoints and HTTP methods
+                    - resources are plural by convention
+                        ex:
+                            - /api/photos(NEVER /api/photo)
+                            - /api/statuses
+            
+    // ==================================================================== //
+
+    Anatomy of a Client Request
+        - Operation to be performed dictated by HTTP methods
+        - HTTP methods and corresponding CRUD operation
+        - a path to the resource to be operated on
+            - URI endpoint
+        - a header containing additional request information
+        - a request body containing data (optional)
+
+        In the URU:
+        https://official-joke-api.appspot.com/jokes/programming/random
+
+        - the resource is jokes
+        - /programming denotes the resource category
+        - /random determines the specific joke that will be sent via a response
+        - hitting enter on your browser sends a GET request to the API endpoint
+
+    // ==================================================================== //
+    Node.js Review
+        - an open source run time environment
+
+        Runtime Environment
+            - gives the context for runnning programming
+
+        Benefits 
+            - performance
+            - familiarity
+            - access to Node Package Manager(NPM)
+
+        Limitations
+            - does not have a direct support for common web development tasks such as:
+                - handling HTTP verbs (GET, POST, DELETE, etc.)
+                - handling requests at diff URL paths (routing)
+                - serving if static files
+            - this means that using Node.js on its own for web development may get tidious
+
+
+    // ==================================================================== //
+    Express.JS
+        - is a popular and lightweight web applicaiton frameword for Node.js
+        - simplifies the process of building web applications and APIs by providing a set of robust and flexible features for routing, middleware and handling HTTP requests and responses
+
+        Advantages:
+            - simplicity
+            - offers ready to use components
+            - adds easoer routing and processing of HTTP methods
+
+*/
