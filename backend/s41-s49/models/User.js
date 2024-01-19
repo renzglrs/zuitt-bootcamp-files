@@ -3,27 +3,27 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: [true, "firstName is required"],
+    required: [true, "First Name is required"],
   },
   lastName: {
     type: String,
-    required: [true, "lastName is required"],
+    required: [true, "Last Name is required"],
   },
   email: {
     type: String,
-    required: [true, "email is Required"],
+    required: [true, "Email is Required"],
   },
   password: {
     type: String,
-    required: [true, "password is Required"],
+    required: [true, "Password is Required"],
   },
   isAdmin: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   mobileNo: {
     type: Number,
-    required: [true, "mobileNo is Required"],
+    required: [true, "Mobile Number is Required"],
   },
 });
 

@@ -20,7 +20,7 @@ const enrollmentSchema = new mongoose.Schema({
   },
   enrolledOn: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   status: {
     type: String,

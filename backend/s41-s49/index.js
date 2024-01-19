@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 // Allows our backend application to be available to our frontend applicaiton
 // Allows us to control the app's Cross Origin Resource Shareing settings
 const cors = require("cors");
+// Allows access to routes defined within our applicaition
+const userRoutes = require("./routes/user");
 
 // [SECTION] Environment Setup
 const port = 4000;
@@ -34,6 +36,11 @@ mongoose.connect(
 mongoose.connection.once("open", () =>
   console.log("Now connected to MongoDB  Atlas")
 );
+
+// [SECTION] Backend routes
+// http://localhost:4000/users
+// Defines the "/users" string to be included for all user routes defined in the "user" route file
+app.use("/users", userRoutes);
 
 // [SECTION] Server Gateway Response
 // if(require.main) would allow us to listen to the app directly if it is not imported to another module, it will run the app directly
