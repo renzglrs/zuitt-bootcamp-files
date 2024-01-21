@@ -6,13 +6,14 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 // Allows access to routes defined within our applicaition
 const userRoutes = require("./routes/user");
+const courseRoutes = require("./routes/course");
 
 // [SECTION] Environment Setup
 const port = 4000;
 // MongoDB password
 const mongoDBPassword = "admin1234";
 // Database name
-const dbName = "B362-S40-Activity";
+const dbName = "B362-S41-49-Acitivty";
 
 // [SECTION] Server Setup
 // Creates an "app" variable the stores the results of the "express" function that initializes our express application and allows us access to different methods that will make backend creation ease
@@ -41,6 +42,7 @@ mongoose.connection.once("open", () =>
 // http://localhost:4000/users
 // Defines the "/users" string to be included for all user routes defined in the "user" route file
 app.use("/users", userRoutes);
+app.use("/courses", courseRoutes);
 
 // [SECTION] Server Gateway Response
 // if(require.main) would allow us to listen to the app directly if it is not imported to another module, it will run the app directly

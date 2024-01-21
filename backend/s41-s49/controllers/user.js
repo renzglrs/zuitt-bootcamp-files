@@ -78,3 +78,29 @@ module.exports.loginUser = (reqBody) => {
     })
     .catch((err) => err);
 };
+
+// Get User details
+module.exports.getProfile = (reqBody) => {
+  return User.findById(reqBody.id)
+    .then((result, error) => {
+      console.log(result);
+      if (error) {
+        console.log(error);
+        return false;
+      } else {
+        if (result.id == reqBody.id) {
+          return (result = {
+            firstName: result.firstName,
+            lastName: result.lastName,
+            email: result.email,
+            password: "",
+            isAdmin: result.isAdmin,
+            mobileNo: result.mobilbeNo,
+          });
+        } else {
+          return false;
+        }
+      }
+    })
+    .catch((err) => err);
+};

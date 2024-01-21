@@ -29,6 +29,13 @@ router.post("/login", (req, res) => {
     .then((resultFromController) => res.send(resultFromController));
 });
 
+// Route for retrieving user details
+router.post("/details", (req, res) => {
+  userController
+    .getProfile(req.body)
+    .then((resultFromController) => res.send(resultFromController));
+});
+
 // [SECTION] Export Route System
 // Allows us to export the "router" object that will be accessed in our "index.js" file
 module.exports = router;
