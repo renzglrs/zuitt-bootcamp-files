@@ -6,6 +6,7 @@ const auth = require("../auth");
 module.exports.getAllCourses = () => {
   return Course.find({})
     .then((result) => {
+      console.log(result);
       if (result.length != 0) {
         return result;
       } else {
