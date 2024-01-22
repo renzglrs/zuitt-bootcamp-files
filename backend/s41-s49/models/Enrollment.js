@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 // [SECTION] Schema/Blueprint
 const enrollmentSchema = new mongoose.Schema({
-  userID: {
+  userId: {
     type: String,
     required: [true, "User ID is required"],
   },
   enrolledCourses: [
     {
-      courseID: {
+      courseId: {
         type: String,
         required: [true, "Course ID is requried"],
       },

@@ -22,6 +22,9 @@ router.post("/login", userController.loginUser);
 // Get user details
 router.get("/details", verify, userController.getProfile);
 
+// Enroll User to a course
+router.post("/enroll", verify, userController.enroll);
+
 // [SECTION] Export Route System
 // Allows us to export the "router" object that will be accessed in our "index.js" file
 module.exports = router;
