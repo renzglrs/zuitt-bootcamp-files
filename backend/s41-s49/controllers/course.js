@@ -1,8 +1,9 @@
 // Dependencies
 const Course = require("../models/Course");
-const bcrypt = require("bcrypt");
-const auth = require("../auth");
+// const bcrypt = require("bcrypt");
+// const auth = require("../auth");
 
+// Get all courses
 module.exports.getAllCourses = () => {
   return Course.find({})
     .then((result) => {
@@ -16,13 +17,20 @@ module.exports.getAllCourses = () => {
     .catch((err) => err);
 };
 
+module.exports.getAllCourses = () => {
+  return Course.find({})
+    .then((result) => result)
+    .catch((err) => err);
+};
+
+// Create/add course
 module.exports.addCourse = (reqBody) => {
   let newCourse = new Course({
     name: reqBody.name,
     description: reqBody.description,
     price: reqBody.price,
-    isActive: reqBody.isActive,
-    createdOn: reqBody.createdOn,
+    // isActive: reqBody.isActive,
+    // createdOn: reqBody.createdOn,
   });
 
   return newCourse

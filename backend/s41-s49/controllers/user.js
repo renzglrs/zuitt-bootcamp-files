@@ -90,7 +90,7 @@ module.exports.getProfile = (reqBody) => {
       } else {
         if (result.id == reqBody.id) {
           const tempUser = result;
-          tempUser.password = "";
+          tempUser.password = "*****";
           return tempUser;
         } else {
           return false;
@@ -99,3 +99,13 @@ module.exports.getProfile = (reqBody) => {
     })
     .catch((err) => err);
 };
+
+// Retrieve User Details
+// module.exports.getProfile = (reqBody) => {
+//   return User.findById(reqBody.id)
+//     .then((result) => {
+//       result.password = "*******";
+//       return result;
+//     })
+//     .catch((err) => err);
+// };

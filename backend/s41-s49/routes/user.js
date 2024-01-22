@@ -30,7 +30,7 @@ router.post("/login", (req, res) => {
 });
 
 // Route for retrieving user details
-router.post("/details", (req, res) => {
+router.get("/details", (req, res) => {
   userController
     .getProfile(req.body)
     .then((resultFromController) => res.send(resultFromController));
