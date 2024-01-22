@@ -1,20 +1,6 @@
 // Dependencies
 const Course = require("../models/Course");
 
-// [MY SOLUTION] Get all courses
-// module.exports.getAllCourses = () => {
-//   return Course.find({})
-//     .then((result) => {
-//       console.log(result);
-//       if (result.length != 0) {
-//         return result;
-//       } else {
-//         return false;
-//       }
-//     })
-//     .catch((err) => err);
-// };
-
 // Create/Add Course
 module.exports.addCourse = (req, res) => {
   try {
@@ -26,32 +12,32 @@ module.exports.addCourse = (req, res) => {
 
     return newCourse
       .save()
-      .then((result) => res.send(result))
-      .catch((err) => res.send(err));
+      .then((result) => res.status(201).send(result))
+      .catch((err) => res.status(500).send(err));
   } catch (err) {
-    res.send("Error in Variables");
+    res.status(500).send("Error in Variables");
   }
 };
 
 // Retrieve all courses
 module.exports.getAllCourses = (req, res) => {
   return Course.find({})
-    .then((result) => res.send(result))
-    .catch((err) => res.send(err));
+    .then((result) => res.status(200).send(result))
+    .catch((err) => res.status(500).send(err));
 };
 
 // Get specific course
 module.exports.getCourse = (req, res) => {
   Course.findById(req.body.id)
-    .then((course) => res.send(course))
-    .catch((err) => res.send(err));
+    .then((result) => res.status(200).send(result))
+    .catch((err) => res.status(500).send(err));
 };
 
 // Get all active/available courses
 module.exports.getAllActive = (req, res) => {
   Course.find({ isActive: true })
-    .then((activeCourses) => res.send(activeCourses))
-    .catch((err) => res.send(err));
+    .then((activeCourses) => res.status(200).send(activeCourses))
+    .catch((err) => res.status(500).send(err));
 };
 
 // Update a course
@@ -65,12 +51,12 @@ module.exports.updateCourse = (req, res) => {
   return Course.findByIdAndUpdate(req.params.courseId, updateCourse)
     .then((course) => {
       if (course) {
-        res.send(true);
+        res.status(200).send(true);
       } else {
-        res.send(false);
+        res.status(404).send(false);
       }
     })
-    .catch((err) => res.send(err));
+    .catch((err) => res.status(500).send(err));
 };
 
 // Archive a Course
@@ -82,12 +68,12 @@ module.exports.archiveCourse = (req, res) => {
   return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
     .then((course) => {
       if (course) {
-        res.send(true);
+        res.status(200).send(true);
       } else {
-        res.send(false);
+        res.status(404).send(false);
       }
     })
-    .catch((err) => res.send(err));
+    .catch((err) => res.status(500).send(err));
 };
 
 // Activate a Course
@@ -99,10 +85,10 @@ module.exports.activateCourse = (req, res) => {
   return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
     .then((course) => {
       if (course) {
-        res.send(true);
+        res.status(200).send(true);
       } else {
-        res.send(false);
+        res.status(404).send(false);
       }
     })
-    .catch((err) => res.send(err));
+    .catch((err) => res.status(500).send(err));
 };

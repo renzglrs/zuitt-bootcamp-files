@@ -83,8 +83,9 @@ module.exports.loginUser = (req, res) => {
 
 // Retrieve User Details
 module.exports.getProfile = (req, res) => {
-  return User.findById(userId)
+  return User.findById(req.body.id)
     .then((result) => {
+      console.log(result);
       result.password = "******";
       return res.status(200).send(result);
     })
@@ -112,5 +113,12 @@ module.exports.enroll = (req, res) => {
     .then((enrolled) => {
       return res.status(201).send(true);
     })
+    .catch((err) => res.status(500).send(err));
+};
+
+// Get enrollments of user
+module.exports.getEnrollments = (req, res) => {
+  return Enrollment.find({})
+    .then((enrollments) => res.status(200).send(enrollments))
     .catch((err) => res.status(500).send(err));
 };
