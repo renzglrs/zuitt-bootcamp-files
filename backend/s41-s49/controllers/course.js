@@ -4,18 +4,18 @@ const Course = require("../models/Course");
 // const auth = require("../auth");
 
 // Get all courses
-module.exports.getAllCourses = () => {
-  return Course.find({})
-    .then((result) => {
-      console.log(result);
-      if (result.length != 0) {
-        return result;
-      } else {
-        return false;
-      }
-    })
-    .catch((err) => err);
-};
+// module.exports.getAllCourses = () => {
+//   return Course.find({})
+//     .then((result) => {
+//       console.log(result);
+//       if (result.length != 0) {
+//         return result;
+//       } else {
+//         return false;
+//       }
+//     })
+//     .catch((err) => err);
+// };
 
 module.exports.getAllCourses = () => {
   return Course.find({})
