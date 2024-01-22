@@ -2,23 +2,20 @@
 const express = require("express");
 const courseController = require("../controllers/course");
 
+const { verify, verifyAdmin } = require("../auth");
+
 // [SECTION] Routing Component
-const router = express.Router();
+// Create/Add a course
+router.post("/", verify, verifyAdmin, courseController.addCourse);
 
-// [SECTION] Routes
-// Get all courses
-router.get("/", (req, res) => {
-  courseController
-    .getAllCourses()
-    .then((resultFromController) => res.send(resultFromController));
-});
+// Retrieve all course
+router.get("/all", verify, verifyAdmin, courseController.getAllCourses);
 
-// Create new course
-router.post("/", (req, res) => {
-  courseController
-    .addCourse(req.body)
-    .then((resultFromController) => res.send(resultFromController));
-});
+// Get Specific course
+router.post("/specific", courseController.getCourse);
+
+// Get all active/available course
+router.get("/", courseController.getAllActive);
 
 // [SECTION] Export Route System
 module.exports = router;

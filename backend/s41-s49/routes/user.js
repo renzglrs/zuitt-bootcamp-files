@@ -2,6 +2,8 @@
 const express = require("express");
 const userController = require("../controllers/user");
 
+const { verify, verifyAdmin } = require("../auth");
+
 // [SECTION] Routing Component
 const router = express.Router();
 
@@ -9,32 +11,16 @@ const router = express.Router();
 // Route for checking if the user's email already exists in the database
 // Invokes the "checkEmailExists" function from the controller file to communicate with our database
 // Passes the "body" property of our "request" object to the corresponding controller function
-router.post("/checkEmail", (req, res) => {
-  userController
-    .checkEmailExists(req.body)
-    .then((resultFromController) => res.send(resultFromController));
-});
+router.post("/checkEmail", userController.checkEmailExists);
 
 // Route for user registration
-router.post("/register", (req, res) => {
-  userController
-    .registerUser(req.body)
-    .then((resultFromController) => res.send(resultFromController));
-});
+router.post("/register", userController.registerUser);
 
 // Route for logging in
-router.post("/login", (req, res) => {
-  userController
-    .loginUser(req.body)
-    .then((resultFromController) => res.send(resultFromController));
-});
+router.post("/login", userController.loginUser);
 
-// Route for retrieving user details
-router.get("/details", (req, res) => {
-  userController
-    .getProfile(req.body)
-    .then((resultFromController) => res.send(resultFromController));
-});
+// Get user details
+router.get("/details", verify, userController.getProfile);
 
 // [SECTION] Export Route System
 // Allows us to export the "router" object that will be accessed in our "index.js" file

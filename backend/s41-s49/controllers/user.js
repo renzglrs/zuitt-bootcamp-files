@@ -12,15 +12,15 @@ const auth = require("../auth");
 
 */
 
-module.exports.checkEmailExists = (reqBody) => {
-  // The result  is sent back to the client  via the "then" method found in the route file
-  return User.find({ email: reqBody.email })
+module.exports.checkEmailExists = (req, res) => {
+  // The result is sent back to the client via the "then" method found in the route file
+  return User.find({ email: req.body.email })
     .then((result) => {
+      // the "find" method returns a record if a match is found
       if (result.length > 0) {
-        // the "find" method returns a record if a match is found
-        return true;
+        return res.send(true);
       } else {
-        return false;
+        return res.send(false);
       }
     })
     .catch((err) => err);
@@ -33,19 +33,19 @@ module.exports.checkEmailExists = (reqBody) => {
     2. Make sure that the password is encrypted
     3. Save the new User to the database
 */
-module.exports.registerUser = (reqBody) => {
-  // Creates a new variable "newUser" and instantiates a new "User " object using the mongoose model
+module.exports.registerUser = (req, res) => {
+  // Creates a variable "newUser" and instantiates a new "User" object using the mongoose model
   let newUser = new User({
-    firstName: reqBody.firstName,
-    lastName: reqBody.lastName,
-    email: reqBody.email,
-    mobileNo: reqBody.mobileNo,
-    password: bcrypt.hashSync(reqBody.password, 10),
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    mobileNo: req.body.mobileNo,
+    password: bcrypt.hashSync(req.body.password, 10),
   });
 
   return newUser
     .save()
-    .then((result) => result)
+    .then((result) => res.send(result))
     .catch((err) => err);
 };
 
@@ -56,56 +56,56 @@ module.exports.registerUser = (reqBody) => {
     2. Compare the password provided in the login form with the password stored in the database
     3. Generate/return a JSON webtoken if the user is successfully logged in and return false if not
 */
-module.exports.loginUser = (reqBody) => {
-  // The findOne method returns the first record in the collection that matches the search criteria
-  return User.findOne({ email: reqBody.email })
+module.exports.loginUser = (req, res) => {
+  // the fineOne method returns the first record in the collection that matches the search criteria
+  return User.findOne({ email: req.body.email })
     .then((result) => {
-      // User does not exists
+      // User does not exist
       if (result == null) {
-        return false;
+        return res.send("No email Found.");
         // If user exists
       } else {
         const isPasswordCorrect = bcrypt.compareSync(
-          reqBody.password,
+          req.body.password,
           result.password
         );
         if (isPasswordCorrect) {
-          return { access: auth.createAccessToken(result) };
+          return res.send({ access: auth.createAccessToken(result) });
         } else {
-          return false;
+          return res.send("Email and password do not match");
         }
       }
     })
     .catch((err) => err);
 };
 
-// Get User details
-module.exports.getProfile = (reqBody) => {
-  return User.findById(reqBody.id)
-    .then((result, error) => {
-      //   console.log(result);
-      if (error) {
-        console.log(error);
-        return false;
-      } else {
-        if (result.id == reqBody.id) {
-          const tempUser = result;
-          tempUser.password = "*****";
-          return tempUser;
-        } else {
-          return false;
-        }
-      }
-    })
-    .catch((err) => err);
-};
-
-// Retrieve User Details
+// [MY SOLUTION] Get User details
 // module.exports.getProfile = (reqBody) => {
 //   return User.findById(reqBody.id)
-//     .then((result) => {
-//       result.password = "*******";
-//       return result;
+//     .then((result, error) => {
+//       //   console.log(result);
+//       if (error) {
+//         console.log(error);
+//         return false;
+//       } else {
+//         if (result.id == reqBody.id) {
+//           const tempUser = result;
+//           tempUser.password = "*****";
+//           return tempUser;
+//         } else {
+//           return false;
+//         }
+//       }
 //     })
 //     .catch((err) => err);
 // };
+
+// Retrieve User Details
+module.exports.getProfile = (userId) => {
+  return User.findById(userId)
+    .then((result) => {
+      result.password = "******";
+      return result;
+    })
+    .catch((err) => err);
+};

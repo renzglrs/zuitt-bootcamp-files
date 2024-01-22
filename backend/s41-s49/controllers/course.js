@@ -1,9 +1,7 @@
 // Dependencies
 const Course = require("../models/Course");
-// const bcrypt = require("bcrypt");
-// const auth = require("../auth");
 
-// Get all courses
+// [MY SOLUTION] Get all courses
 // module.exports.getAllCourses = () => {
 //   return Course.find({})
 //     .then((result) => {
@@ -17,24 +15,37 @@ const Course = require("../models/Course");
 //     .catch((err) => err);
 // };
 
-module.exports.getAllCourses = () => {
+// Get all courses
+module.exports.getAllCourses = (req, res) => {
   return Course.find({})
-    .then((result) => result)
+    .then((result) => res.send(result))
     .catch((err) => err);
 };
 
 // Create/add course
-module.exports.addCourse = (reqBody) => {
+module.exports.addCourse = (req, res) => {
   let newCourse = new Course({
-    name: reqBody.name,
-    description: reqBody.description,
-    price: reqBody.price,
-    // isActive: reqBody.isActive,
-    // createdOn: reqBody.createdOn,
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
   });
 
   return newCourse
     .save()
-    .then((result) => result)
+    .then((result) => res.send(result))
+    .catch((err) => err);
+};
+
+// Get specific course
+module.exports.getCourse = (req, res) => {
+  Course.findById(req.body.id)
+    .then((course) => res.send(course))
+    .catch((err) => err);
+};
+
+// Get all active/available courses
+module.exports.getAllActive = (req, res) => {
+  Course.find({ isActive: true })
+    .then((activeCourses) => res.send(activeCourses))
     .catch((err) => err);
 };
