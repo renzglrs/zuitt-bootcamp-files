@@ -116,9 +116,19 @@ module.exports.enroll = (req, res) => {
     .catch((err) => res.status(500).send(err));
 };
 
-// Get enrollments of user
+//[SECTION] Get enrollments
+/*
+    Steps:
+    1. Use the mongoose method "find" to retrieve all enrollments for the logged in user
+    2. If no enrollments are found, return a 404 error. Else return a 200 status and the enrollment record
+*/
 module.exports.getEnrollments = (req, res) => {
-  return Enrollment.find({})
-    .then((enrollments) => res.status(200).send(enrollments))
+  return Enrollment.find({ userId: req.user.id })
+    .then((enrollments) => {
+      if (enrollments.length > 0) {
+        return res.status(200).send(enrollments);
+      }
+      return res.status(404).send(false);
+    })
     .catch((err) => res.status(500).send(err));
 };

@@ -70,7 +70,7 @@ module.exports.archiveCourse = (req, res) => {
       if (course) {
         res.status(200).send(true);
       } else {
-        res.status(404).send(false);
+        res.status(400).send(false);
       }
     })
     .catch((err) => res.status(500).send(err));
@@ -87,7 +87,7 @@ module.exports.activateCourse = (req, res) => {
       if (course) {
         res.status(200).send(true);
       } else {
-        res.status(404).send(false);
+        res.status(400).send(false);
       }
     })
     .catch((err) => res.status(500).send(err));
