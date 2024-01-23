@@ -1,8 +1,9 @@
 // [SECTION] Dependencies and Modules
 const express = require("express");
 const userController = require("../controllers/user");
+const passport = require("passport");
 
-const { verify, verifyAdmin } = require("../auth");
+const { verify, verifyAdmin, isLoggedIn } = require("../auth");
 
 // [SECTION] Routing Component
 const router = express.Router();
@@ -27,6 +28,54 @@ router.post("/enroll", verify, userController.enroll);
 
 // Get Enrollments of User
 router.get("/getEnrollments", verify, userController.getEnrollments);
+
+// Google Login
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    // scopes that are allowed when retrieving data
+    scope: ["email", "profile"],
+    prompt: "select_account",
+  })
+);
+
+// callback URL for Oauth authentication
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/users/failed",
+  }),
+  function (req, res) {
+    res.redirect("/users/success");
+  }
+);
+
+// failed authentication
+router.get("/failed", (req, res) => {
+  console.log("User is not authenticated");
+  res.send("Failed");
+});
+
+// success authentication
+router.get("/success", isLoggedIn, (req, res) => {
+  console.log("You are logged in");
+  console.log(req.user);
+  res.send(`Welcome ${req.user.displayName}`);
+});
+
+// Google logout
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Error while destroying session");
+    } else {
+      req.logout(() => {
+        console.log("You are logged out.");
+        res.redirect("/");
+      });
+    }
+  });
+});
 
 // [SECTION] Export Route System
 // Allows us to export the "router" object that will be accessed in our "index.js" file

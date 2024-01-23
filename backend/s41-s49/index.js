@@ -1,6 +1,13 @@
+require("dotenv").config();
 // [SECTION] Dependencies and Modules
 const express = require("express");
 const mongoose = require("mongoose");
+
+// Google Login
+const passport = require("passport");
+const session = require("express-session");
+require("./passport");
+
 // Allows our backend application to be available to our frontend applicaiton
 // Allows us to control the app's Cross Origin Resource Shareing settings
 const cors = require("cors");
@@ -22,6 +29,19 @@ const app = express();
 // Registering middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+// Google Login
+// Creates Session with the given data
+app.use(
+  session({
+    secret: process.env.clientSecret,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // [SECTION] Database Connection
 // Connect to our MongoDB database
