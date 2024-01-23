@@ -28,7 +28,14 @@ module.exports.addCourse = (req, res) => {
 // Retrieve all courses
 module.exports.getAllCourses = (req, res) => {
   return Course.find({})
-    .then((result) => res.status(200).send(result))
+    .then((result) => {
+      if (result.length > 0) {
+        return res.status(200).send(result);
+      } else {
+        // 200 is a result of a successful request, even if the response returned no record/content
+        return res.status(200).send({ message: "No courses found." });
+      }
+    })
     .catch((err) => res.status(500).send(err));
 };
 
@@ -73,22 +80,22 @@ module.exports.updateCourse = (req, res) => {
 
 // Archive a Course
 module.exports.archiveCourse = (req, res) => {
-  if (req.user.isAdmin) {
-    let updatedActiveField = {
-      isActive: false,
-    };
+  let updatedActiveField = {
+    isActive: false,
+  };
 
-    Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
+  if (req.user.isAdmin == true) {
+    return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
       .then((course) => {
         if (course) {
-          return res.status(200).send(course);
+          res.status(200).send(course);
         } else {
-          return res.status(400).send("Failed Archiving");
+          res.status(400).send(false);
         }
       })
       .catch((err) => res.status(500).send(err));
   } else {
-    return res.status(400).send("False");
+    return res.status(403).send(false);
   }
 };
 
@@ -98,17 +105,17 @@ module.exports.activateCourse = (req, res) => {
     isActive: true,
   };
 
-  return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
-    .then((course) => {
-      try {
+  if (req.user.isAdmin == true) {
+    return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
+      .then((course) => {
         if (course) {
           res.status(200).send(course);
         } else {
           res.status(400).send(false);
         }
-      } catch (err) {
-        return res.status(400).send(err);
-      }
-    })
-    .catch((err) => res.status(500).send(err));
+      })
+      .catch((err) => res.status(500).send(err));
+  } else {
+    return res.status(403).send(false);
+  }
 };

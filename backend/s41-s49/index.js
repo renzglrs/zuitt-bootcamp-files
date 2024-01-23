@@ -27,11 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Connect to our MongoDB database
 // [SECTION] MongoDB Connection thru Mongoose
 mongoose.connect(
-  `mongodb+srv://admin:${mongoDBPassword}@gloriosodb.gewtusc.mongodb.net/${dbName}?retryWrites=true&w=majority`,
-  {
-    useNewURLParser: true,
-    useUnifiedTopology: true,
-  }
+  `mongodb+srv://admin:${mongoDBPassword}@gloriosodb.gewtusc.mongodb.net/${dbName}?retryWrites=true&w=majority`
 );
 // Promts a message in the terminal once the connection is open and we are able to successfully connect our database
 mongoose.connection.once("open", () =>
