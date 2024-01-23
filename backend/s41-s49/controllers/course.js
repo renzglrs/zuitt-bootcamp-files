@@ -10,10 +10,16 @@ module.exports.addCourse = (req, res) => {
       price: req.body.price,
     });
 
-    return newCourse
-      .save()
-      .then((result) => res.status(201).send(result))
-      .catch((err) => res.status(500).send(err));
+    Course.findOne({ name: req.body.name }).then((existingCourse) => {
+      if (existingCourse) {
+        return res.status(409).send(false);
+      }
+
+      return newCourse
+        .save()
+        .then((result) => res.status(201).send(result))
+        .catch((err) => res.status(500).send(err));
+    });
   } catch (err) {
     res.status(500).send("Error in Variables");
   }
@@ -36,7 +42,13 @@ module.exports.getCourse = (req, res) => {
 // Get all active/available courses
 module.exports.getAllActive = (req, res) => {
   Course.find({ isActive: true })
-    .then((activeCourses) => res.status(200).send(activeCourses))
+    .then((activeCourses) => {
+      if (activeCourses.length > 0) {
+        return res.status(200).send(activeCourses);
+      } else {
+        return res.status(200).send(false);
+      }
+    })
     .catch((err) => res.status(500).send(err));
 };
 
@@ -61,19 +73,23 @@ module.exports.updateCourse = (req, res) => {
 
 // Archive a Course
 module.exports.archiveCourse = (req, res) => {
-  let updatedActiveField = {
-    isActive: false,
-  };
+  if (req.user.isAdmin) {
+    let updatedActiveField = {
+      isActive: false,
+    };
 
-  return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
-    .then((course) => {
-      if (course) {
-        res.status(200).send(true);
-      } else {
-        res.status(400).send(false);
-      }
-    })
-    .catch((err) => res.status(500).send(err));
+    Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
+      .then((course) => {
+        if (course) {
+          return res.status(200).send(course);
+        } else {
+          return res.status(400).send("Failed Archiving");
+        }
+      })
+      .catch((err) => res.status(500).send(err));
+  } else {
+    return res.status(400).send("False");
+  }
 };
 
 // Activate a Course
@@ -84,10 +100,14 @@ module.exports.activateCourse = (req, res) => {
 
   return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
     .then((course) => {
-      if (course) {
-        res.status(200).send(true);
-      } else {
-        res.status(400).send(false);
+      try {
+        if (course) {
+          res.status(200).send(course);
+        } else {
+          res.status(400).send(false);
+        }
+      } catch (err) {
+        return res.status(400).send(err);
       }
     })
     .catch((err) => res.status(500).send(err));

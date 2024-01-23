@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   mobileNo: {
-    type: Number,
+    type: String,
     required: [true, "Mobile Number is Required"],
   },
 });
