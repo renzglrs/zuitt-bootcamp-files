@@ -14,7 +14,7 @@ router.post("/", verify, verifyAdmin, courseController.addCourse);
 router.get("/all", verify, verifyAdmin, courseController.getAllCourses);
 
 // Get Specific course
-router.post("/specific", courseController.getCourse);
+router.get("/specific", courseController.getCourse);
 
 // Get all active/available course
 router.get("/", courseController.getAllActive);

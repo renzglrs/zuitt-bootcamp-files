@@ -12,13 +12,23 @@ module.exports.addCourse = (req, res) => {
 
     Course.findOne({ name: req.body.name }).then((existingCourse) => {
       if (existingCourse) {
-        return res.status(409).send(false);
+        return res.status(409).send({
+          error: "Course already exists.",
+        });
       }
 
       return newCourse
         .save()
-        .then((result) => res.status(201).send(result))
-        .catch((err) => res.status(500).send(err));
+        .then((savedCourse) =>
+          res
+            .status(201)
+            .send({ message: "Course saved successfully", data: savedCourse })
+        )
+        .catch((err) =>
+          res.status(500).send({
+            error: "Failed to save course",
+          })
+        );
     });
   } catch (err) {
     res.status(500).send("Error in Variables");
@@ -36,14 +46,28 @@ module.exports.getAllCourses = (req, res) => {
         return res.status(200).send({ message: "No courses found." });
       }
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) =>
+      res.status(500).send({
+        error: "Error finding courses",
+      })
+    );
 };
 
 // Get specific course
 module.exports.getCourse = (req, res) => {
   Course.findById(req.body.id)
-    .then((result) => res.status(200).send(result))
-    .catch((err) => res.status(500).send(err));
+    .then((course) => {
+      if (!course) {
+        res.status(404).send({ error: "Course not found." });
+      }
+
+      return res.status(200).send({ course });
+    })
+    .catch((err) =>
+      res.status(500).send({
+        error: "The course ID is not valid",
+      })
+    );
 };
 
 // Get all active/available courses
@@ -56,7 +80,11 @@ module.exports.getAllActive = (req, res) => {
         return res.status(200).send(false);
       }
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) =>
+      res.status(500).send({
+        error: "Error finding active courses",
+      })
+    );
 };
 
 // Update a course
@@ -70,12 +98,18 @@ module.exports.updateCourse = (req, res) => {
   return Course.findByIdAndUpdate(req.params.courseId, updateCourse)
     .then((course) => {
       if (course) {
-        res.status(200).send(true);
+        res
+          .status(200)
+          .send({ message: "Course updated successfully", data: course });
       } else {
-        res.status(404).send(false);
+        res.status(404).send({ error: "Course cannot be updated" });
       }
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) =>
+      res.status(500).send({
+        error: "Error in updating a course",
+      })
+    );
 };
 
 // Archive a Course
@@ -88,14 +122,20 @@ module.exports.archiveCourse = (req, res) => {
     return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
       .then((course) => {
         if (course) {
-          res.status(200).send(course);
+          res
+            .status(200)
+            .send({ message: "Course archived successfully", data: course });
         } else {
-          res.status(400).send(false);
+          res
+            .status(400)
+            .send({ error: "There is a problem archiving the course." });
         }
       })
-      .catch((err) => res.status(500).send(err));
+      .catch((err) => res.status(500).send({ error: "Archiving failed" }));
   } else {
-    return res.status(403).send(false);
+    return res
+      .status(403)
+      .send({ error: "Your are not authorized to do this action." });
   }
 };
 
@@ -109,13 +149,19 @@ module.exports.activateCourse = (req, res) => {
     return Course.findByIdAndUpdate(req.params.courseId, updatedActiveField)
       .then((course) => {
         if (course) {
-          res.status(200).send(course);
+          res
+            .status(200)
+            .send({ message: "Course activated successfully", data: course });
         } else {
-          res.status(400).send(false);
+          res
+            .status(400)
+            .send({ error: "There is a problem activating the course." });
         }
       })
-      .catch((err) => res.status(500).send(err));
+      .catch((err) => res.status(500).send({ error: "Activating failed" }));
   } else {
-    return res.status(403).send(false);
+    return res
+      .status(403)
+      .send({ error: "Your are not authorized to do this action." });
   }
 };

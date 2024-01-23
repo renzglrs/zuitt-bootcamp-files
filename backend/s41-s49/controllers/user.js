@@ -19,14 +19,16 @@ module.exports.checkEmailExists = (req, res) => {
       .then((result) => {
         // the "find" method returns a record if a match is found
         if (result.length > 0) {
-          return res.status(409).send(true);
+          return res.status(409).send({ error: "Duplicate Email Found" });
         } else {
-          return res.status(404).send(false);
+          return res.status(404).send({ message: "Email not Found" });
         }
       })
-      .catch((err) => res.status(500).send(err));
+      .catch((err) =>
+        res.status(500).send({ error: "Cannot find email provided." })
+      );
   } else {
-    return res.status(400).send(false);
+    return res.status(400).send({ error: "Invalid email." });
   }
 };
 
@@ -38,38 +40,48 @@ module.exports.checkEmailExists = (req, res) => {
 	3. Save the new User to the database
 */
 module.exports.registerUser = (req, res) => {
-  // Creates a variable "newUser" and instantiates a new "User" object using the mongoose model
-
-  try {
-    let newUser = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      mobileNo: req.body.mobileNo,
-      password: bcrypt.hashSync(req.body.password, 10),
-    });
-
-    //   If user exists
+  // Checks if the email is in the right format
+  if (!req.body.email.includes("@")) {
+    return res.status(400).send({ error: "Email Invalid." });
+  }
+  // Checks if the mobile number has the correct number of characters
+  else if (req.body.mobileNo.length !== 11) {
+    return res.status(400).send({ error: "Mobile number Invalid." });
+  }
+  // Checks if the password has atleast 8 characters
+  else if (req.body.password.length < 8) {
+    return res
+      .status(400)
+      .send({ error: "Password must be at least 8 characters." });
+    // If all needed requirements are achieved
+  } else {
     User.findOne({ email: req.body.email }).then((existingUser) => {
       if (existingUser) {
-        return res.status(409).send(false);
-      }
+        return res.status(400).send(false);
+      } else {
+        let newUser = new User({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          mobileNo: req.body.mobileNo,
+          password: bcrypt.hashSync(req.body.password, 10),
+        });
 
-      if (
-        newUser.email.includes("@") &&
-        newUser.password.length > 8 &&
-        newUser.mobileNo.length == 11
-      ) {
         return newUser
           .save()
-          .then((result) => res.status(201).send(result))
-          .catch((err) => res.status(500).send(err));
-      } else {
-        return res.status(409).send(false);
+          .then((registeredUser) =>
+            res.status(201).send({
+              mesasge: "Registered successfull!",
+              data: registeredUser,
+            })
+          )
+          .catch((err) =>
+            res
+              .status(500)
+              .send({ error: "There is an error. Please try again." })
+          );
       }
     });
-  } catch (err) {
-    res.status(500).send("Error in Variables");
   }
 };
 
@@ -103,9 +115,13 @@ module.exports.loginUser = (req, res) => {
           }
         }
       })
-      .catch((err) => res.status(500).send(err));
+      .catch((err) =>
+        res.status(500).send({
+          error: "There is an error while logging in. Please try again.",
+        })
+      );
   } else {
-    return res.status(400).send(false);
+    return res.status(400).send({ error: "Invalid email" });
   }
 };
 
@@ -113,11 +129,18 @@ module.exports.loginUser = (req, res) => {
 module.exports.getProfile = (req, res) => {
   return User.findById(req.body.id)
     .then((result) => {
-      console.log(result);
+      if (!result) {
+        return res.status(400).send({ error: "User not found" });
+      }
+
       result.password = "******";
       return res.status(200).send(result);
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) =>
+      res
+        .status(500)
+        .send({ error: "There is an error fetching your profile.", data: err })
+    );
 };
 
 // Enroll user to a course
@@ -127,7 +150,7 @@ module.exports.enroll = (req, res) => {
   console.log(req.body.enrolledCourses);
 
   if (req.user.isAdmin) {
-    return res.status(403).send(false);
+    return res.status(403).send({ error: "Access forbidden." });
   }
 
   let newEnrollment = new Enrollment({
@@ -139,9 +162,17 @@ module.exports.enroll = (req, res) => {
   return newEnrollment
     .save()
     .then((enrolled) => {
-      return res.status(201).send(true);
+      if (!enrolled) {
+        return res
+          .status(400)
+          .send({ error: "There is an error while enrolling." });
+      }
+
+      return res
+        .status(201)
+        .send({ message: "Enrollment successful.", data: enrolled });
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.status(500).send({ error: "Error sad" }));
 };
 
 //[SECTION] Get enrollments
@@ -156,7 +187,9 @@ module.exports.getEnrollments = (req, res) => {
       if (enrollments.length > 0) {
         return res.status(200).send(enrollments);
       }
-      return res.status(404).send(false);
+      return res.status(404).send({ error: "No enrollments found." });
     })
-    .catch((err) => res.status(500).send(err));
+    .catch((err) =>
+      res.status(500).send({ error: "Failed to fetch enrollments" })
+    );
 };
