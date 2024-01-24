@@ -165,3 +165,34 @@ module.exports.activateCourse = (req, res) => {
       .send({ error: "Your are not authorized to do this action." });
   }
 };
+
+// Search course by name
+module.exports.searchCoursesByName = async (req, res) => {
+  try {
+    const { courseName } = req.body;
+
+    // case insensitve
+    const courses = await Course.find({
+      name: { $regex: courseName, $options: "i" },
+    });
+
+    return res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error!" });
+  }
+};
+
+// Search course by price range
+module.exports.searchCoursesByPriceRange = async (req, res) => {
+  try {
+    const { minPrice, maxPrice } = req.body;
+
+    const courses = await Course.find({
+      price: { $gte: minPrice, $lte: maxPrice },
+    });
+
+    return res.status(200).json(courses);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error!" });
+  }
+};

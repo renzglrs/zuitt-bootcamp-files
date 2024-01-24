@@ -38,5 +38,11 @@ router.patch(
   courseController.activateCourse
 );
 
+// Search course by name
+router.post("/search", courseController.searchCoursesByName);
+
+// Search course by price range
+router.post("/search-price", courseController.searchCoursesByPriceRange);
+
 // [SECTION] Export Route System
 module.exports = router;

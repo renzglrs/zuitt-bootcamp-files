@@ -193,3 +193,69 @@ module.exports.getEnrollments = (req, res) => {
       res.status(500).send({ error: "Failed to fetch enrollments" })
     );
 };
+
+// Reset Password
+module.exports.resetPassword = async (req, res) => {
+  try {
+    // console.log(req.user);
+    const { newPassword } = req.body;
+    const { id } = req.user;
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .send({ error: "Password must be at least 8 characters." });
+    } else {
+      // Hash/encrypt the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      await User.findByIdAndUpdate(id, { password: hashedPassword });
+
+      res.status(200).json({ message: "Password reset successfully" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error!" });
+  }
+};
+
+// Update user profile
+module.exports.updateProfile = async (req, res) => {
+  try {
+    // const userId = req.user.id;
+    // destructured format
+    const { id } = req.user;
+    const { firstName, lastName, mobileNo } = req.body;
+
+    const updateUser = await User.findByIdAndUpdate(
+      id,
+      { firstName, lastName, mobileNo },
+      { new: true }
+    );
+
+    res.status(200).send(updateUser);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};
+
+module.exports.setToAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isAdmin } = req.user;
+
+    if (isAdmin == true) {
+      const newUserAdmin = await User.findByIdAndUpdate(
+        id,
+        { isAdmin: true },
+        { new: true }
+      );
+
+      return res.status(200).json({ newUserAdmin });
+    } else {
+      return res.status(400).json({ error: "Failed." });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error!" });
+  }
+};

@@ -29,7 +29,7 @@ router.post("/enroll", verify, userController.enroll);
 // Get Enrollments of User
 router.get("/getEnrollments", verify, userController.getEnrollments);
 
-// Google Login
+// Google Login Routes
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -76,6 +76,15 @@ router.get("/logout", (req, res) => {
     }
   });
 });
+
+// Password Reset
+router.put("/reset-password", verify, userController.resetPassword);
+
+// Update user profile
+router.put("/profile", verify, userController.updateProfile);
+
+// Set user to admin
+router.patch("/:id/set-admin", verify, verifyAdmin, userController.setToAdmin);
 
 // [SECTION] Export Route System
 // Allows us to export the "router" object that will be accessed in our "index.js" file
