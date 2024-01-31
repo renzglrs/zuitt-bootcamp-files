@@ -1,6 +1,9 @@
 import "./App.css";
 import AppNavBar from "./components/AppNavBar";
 import Home from "./pages/Home";
+import Courses from "./pages/Courses";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import { Container } from "react-bootstrap";
 
 function App() {
@@ -8,7 +11,10 @@ function App() {
     <>
       <AppNavBar />
       <Container>
-        <Home />
+        <Login />
+        {/* <Register /> */}
+        {/* <Home />
+        <Courses /> */}
       </Container>
     </>
   );
