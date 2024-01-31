@@ -1,5 +1,5 @@
-import { Form, Button, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { Form, Button, Container } from "react-bootstrap";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,14 +8,15 @@ export default function Login() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    // Validation for submit button
     if (email !== "" && password !== "") {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
-  });
+  }, [email, password]);
 
-  function loginUser(e) {
+  function authenticate(e) {
     e.preventDefault();
 
     fetch("http://localhost:4000/users/login", {
@@ -33,9 +34,14 @@ export default function Login() {
         console.log(data);
 
         if (data.access) {
-          alert("Success");
+          // Storing the token of the authenticated user in the browser's local storage.
+          localStorage.setItem("token", data.access);
+
+          alert("You are now logged in.");
+        } else if (data.error == "No email Found.") {
+          alert("Your email is not registered.");
         } else {
-          alert("Failed");
+          alert("Something went wrong. Please try again later.");
         }
       })
       .catch((error) => {
@@ -48,7 +54,7 @@ export default function Login() {
     <>
       <Container className="my-3 p-3 p-md-5 w-50">
         <h1>Login</h1>
-        <Form onSubmit={(e) => loginUser(e)}>
+        <Form onSubmit={(e) => authenticate(e)}>
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -81,7 +87,7 @@ export default function Login() {
               Login
             </Button>
           ) : (
-            <Button variant="success" type="submit" disabled>
+            <Button variant="secondary" type="submit" disabled>
               Login
             </Button>
           )}
