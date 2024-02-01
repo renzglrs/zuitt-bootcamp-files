@@ -28,7 +28,7 @@ export default function AppNavBar() {
             </Nav.Link>
 
             {/* Conditional Rendering if user is logged in */}
-            {user.token !== null ? (
+            {user.id !== null ? (
               <>
                 <Nav.Link as={NavLink} to="/profile">
                   Profile

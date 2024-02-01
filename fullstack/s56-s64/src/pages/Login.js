@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { Form, Button, Container, Nav } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import UserContext from "../UserContext";
 import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
-  // console.log(user);
+  console.log(user);
 
   // State hooks to store values of the input fields
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ export default function Login() {
     }
   }, [email, password]);
 
-  function authenticate(e) {
+  const authenticate = (e) => {
     e.preventDefault();
 
     fetch("http://localhost:4000/users/login", {
@@ -37,27 +38,57 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
 
         if (data.access) {
           // Storing the token of the authenticated user in the browser's local storage.
           localStorage.setItem("token", data.access);
-          setUser(data.access);
+          // setUser(data.access);
+          retrieveUserDetails(data.access);
 
-          alert("You are now logged in.");
+          Swal.fire({
+            title: "Login Successful",
+            text: "Wellcome to Zuitt",
+            icon: "success",
+          });
         } else if (data.error == "No email Found.") {
-          alert("Your email is not registered.");
+          Swal.fire({
+            title: "Oh, no!",
+            text: "Your email is not registered",
+            icon: "warning",
+          });
         } else {
-          alert("Something went wrong. Please try again later.");
+          Swal.fire({
+            title: "Something went wrong.!",
+            text: "Please try again later.",
+            icon: "error",
+          });
         }
       })
       .catch((error) => {
         // error;
         alert("failed");
       });
-  }
+  };
 
-  return user.token !== null ? (
+  const retrieveUserDetails = (token) => {
+    fetch("http://localhost:4000/users/details", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        console.log(data._id);
+
+        setUser({
+          id: data._id,
+          email: data.email,
+          isAdmin: data.isAdmin,
+        });
+      });
+  };
+
+  return user.id !== null ? (
     <Navigate to="/courses" />
   ) : (
     <Container className="my-3 p-3 p-md-5 w-50">

@@ -10,7 +10,11 @@ export default function Logout() {
   unsetUser();
 
   useEffect(() => {
-    setUser({ token: null });
+    setUser({
+      id: null,
+      email: null,
+      isAdmin: null,
+    });
   }, []);
 
   return <Navigate to="/login" />;

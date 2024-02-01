@@ -81,7 +81,7 @@ export default function Register() {
       });
   }
 
-  return user.token !== null ? (
+  return user.id !== null ? (
     <Navigate to="/courses" />
   ) : (
     <Container className="my-3 p-3 p-md-5 w-50">
