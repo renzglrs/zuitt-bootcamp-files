@@ -1,15 +1,15 @@
-// import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
-// import Navbar from "react-bootstrap/Navbar";
-
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../UserContext";
 
 export default function AppNavBar() {
+  // From global variable
+  const { user } = useContext(UserContext);
+
   // Store the user info from the login page
-  const [user, setUser] = useState(localStorage.getItem("token"));
-  console.log(user); // For checking
+  // const [user, setUser] = useState(localStorage.getItem("token"));
+  // console.log(user); // For checking
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary shadow">
@@ -28,10 +28,15 @@ export default function AppNavBar() {
             </Nav.Link>
 
             {/* Conditional Rendering if user is logged in */}
-            {user !== null ? (
-              <Nav.Link as={NavLink} to="/logout">
-                Logout
-              </Nav.Link>
+            {user.token !== null ? (
+              <>
+                <Nav.Link as={NavLink} to="/profile">
+                  Profile
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/logout">
+                  Logout
+                </Nav.Link>
+              </>
             ) : (
               <>
                 <Nav.Link as={NavLink} to="/register">

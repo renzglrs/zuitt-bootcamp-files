@@ -1,15 +1,17 @@
-// import Button from "react-bootstrap/Button";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import { Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export default function Banner() {
+export default function Banner({ data }) {
+  const { title, content, destination, label } = data;
+
   return (
     <Row className="text-center m-5">
       <Col>
-        <h1>Zuitt Coding Bootcamp</h1>
-        <p>Opportunities for everyone, everywhere!</p>
-        <Button variant="primary">Enroll Now!</Button>
+        <h1>{title}</h1>
+        <p>{content}</p>
+        <Link className="btn btn-primary" to={destination}>
+          {label}
+        </Link>
       </Col>
     </Row>
   );

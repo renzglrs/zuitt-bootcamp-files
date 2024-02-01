@@ -1,7 +1,11 @@
 import { Form, Button, Container } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "../UserContext";
+import { Navigate } from "react-router-dom";
 
 export default function Register() {
+  const { user, setUser } = useContext(UserContext);
+
   // State hooks to store values from input fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -11,13 +15,6 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   // State management to enable and disable register button
   const [isActive, setIsActive] = useState(false);
-
-  // console.log(firstName);
-  // console.log(lastName);
-  // console.log(email);
-  // console.log(mobileNo);
-  // console.log(password);
-  // console.log(confirmPassword);
 
   useEffect(() => {
     if (
@@ -55,7 +52,15 @@ export default function Register() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data.access);
+
+        if (data.access) {
+          // Storing the token of the authenticated user in the browser's local storage.
+          localStorage.setItem("token", data.access);
+          setUser(data.access);
+
+          alert("You are now logged in.");
+        }
 
         if (data.message === "Registered successfully!") {
           setFirstName("");
@@ -76,101 +81,101 @@ export default function Register() {
       });
   }
 
-  return (
-    <>
-      <Container className="my-3 p-3 p-md-5 w-50">
-        <h1>Registration</h1>
-        <Form onSubmit={(e) => registerUser(e)}>
-          <Form.Group className="mb-3" controlId="formFirstName">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter first name"
-              required
-              value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-            />
-          </Form.Group>
+  return user.token !== null ? (
+    <Navigate to="/courses" />
+  ) : (
+    <Container className="my-3 p-3 p-md-5 w-50">
+      <h1>Registration</h1>
+      <Form onSubmit={(e) => registerUser(e)}>
+        <Form.Group className="mb-3" controlId="formFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter first name"
+            required
+            value={firstName}
+            onChange={(e) => {
+              setFirstName(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formLasttName">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter last name"
-              required
-              value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formLasttName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter last name"
+            required
+            value={lastName}
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              required
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formMobileNumber">
-            <Form.Label>Mobile Number</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter 11 digit number"
-              required
-              value={mobileNo}
-              onChange={(e) => {
-                setMobileNo(e.target.value);
-              }}
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formMobileNumber">
+          <Form.Label>Mobile Number</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter 11 digit number"
+            required
+            value={mobileNo}
+            onChange={(e) => {
+              setMobileNo(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              required
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            required
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formConfirmPassword">
-            <Form.Label>Confirm Passwordumber</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm password"
-              required
-              value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
-            />
-          </Form.Group>
+        <Form.Group className="mb-3" controlId="formConfirmPassword">
+          <Form.Label>Confirm Passwordumber</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm password"
+            required
+            value={confirmPassword}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
+          />
+        </Form.Group>
 
-          {/* Conditional Rendering -> ternary operator */}
-          {isActive ? (
-            <Button variant="primary" type="submit">
-              Register
-            </Button>
-          ) : (
-            <Button variant="primary" type="submit" disabled>
-              Register
-            </Button>
-          )}
-        </Form>
-      </Container>
-    </>
+        {/* Conditional Rendering -> ternary operator */}
+        {isActive ? (
+          <Button variant="primary" type="submit">
+            Register
+          </Button>
+        ) : (
+          <Button variant="secondary" type="submit" disabled>
+            Register
+          </Button>
+        )}
+      </Form>
+    </Container>
   );
 }
