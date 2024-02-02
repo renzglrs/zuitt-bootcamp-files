@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
 
   // State hooks to store values of the input fields
   const [email, setEmail] = useState("");

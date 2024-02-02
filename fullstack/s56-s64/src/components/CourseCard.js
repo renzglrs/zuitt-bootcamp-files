@@ -13,18 +13,6 @@ export default function CourseCard({ courseProp }) {
   // Syntax
   // const [getter, setter] = useState(initialGetterValue);
 
-  // const [count, setCount] = useState(0);
-  // console.log(count);
-
-  // const enroll = () => {
-  //   if (count === 20) {
-  //     alert("No more slots available");
-  //   } else {
-  //     setCount(count + 1);
-  //     console.log("Enrollees: " + count);
-  //   }
-  // };
-
   return (
     <Card id="courseComponent1" className="p-3 my-3">
       <Card.Body>

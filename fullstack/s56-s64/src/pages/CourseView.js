@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import UserContext from "../UserContext";
 import Swal from "sweetalert2";
 
 export default function CourseView() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   // retrieve the course id in the params/url -> :courseId
   const { courseId } = useParams();
@@ -49,6 +50,8 @@ export default function CourseView() {
             icon: "success",
             text: "You have successfully enrolled for this course.",
           });
+
+          navigate("/courses");
         } else if (data.error === "Access forbidden.") {
           Swal.fire({
             title: "Oh no!",
@@ -78,14 +81,14 @@ export default function CourseView() {
               <Card.Text>PhP {price}</Card.Text>
               <Card.Subtitle>Class Schedule</Card.Subtitle>
               <Card.Text>8 am - 5 pm</Card.Text>
-              {user.token !== null ? (
+              {user.id !== null ? (
                 <Button variant="primary" onClick={() => enroll(courseId)}>
                   Enroll
                 </Button>
               ) : (
-                <Button variant="secondary" onClick={() => enroll(courseId)} disabled>
-                  Enroll
-                </Button>
+                <Link className="btn btn-info text-white" to="/login">
+                  Login to Enroll
+                </Link>
               )}
             </Card.Body>
           </Card>

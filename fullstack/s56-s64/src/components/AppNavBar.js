@@ -29,14 +29,25 @@ export default function AppNavBar() {
 
             {/* Conditional Rendering if user is logged in */}
             {user.id !== null ? (
-              <>
-                <Nav.Link as={NavLink} to="/profile">
-                  Profile
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/logout">
-                  Logout
-                </Nav.Link>
-              </>
+              user.isAdmin ? (
+                <>
+                  <Nav.Link as={NavLink} to="/addCourse">
+                    Add Course
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/logout">
+                    Logout
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link as={NavLink} to="/profile">
+                    Profile
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/logout">
+                    Logout
+                  </Nav.Link>
+                </>
+              )
             ) : (
               <>
                 <Nav.Link as={NavLink} to="/register">
