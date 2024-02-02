@@ -1,7 +1,8 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import EditCourse from "./EditCourse";
 
-export default function AdminView({ coursesData }) {
+export default function AdminView({ coursesData, fetchData }) {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -16,11 +17,11 @@ export default function AdminView({ coursesData }) {
             {course.isActive ? "Available" : "Unavailable"}
           </td>
           <td>
-            <button className="btn btn-primary ">Edit</button>
+            <EditCourse course={course._id} fetchData={fetchData} />
           </td>
           <td>
             {course.isActive ? (
-              <button className="btn btn-danger">Archive</button>
+              <button className="btn btn-warning">Archive</button>
             ) : (
               <button className="btn btn-success">Activate</button>
             )}

@@ -1,5 +1,3 @@
-import coursesData from "../data/coursesData";
-import CourseCard from "../components/CourseCard";
 import { useEffect, useState, useContext } from "react";
 import UserView from "../components/UserView";
 import AdminView from "../components/AdminView";
@@ -13,29 +11,32 @@ export default function Courses() {
 
   const [courses, setCourses] = useState([]);
 
-  useEffect(() => {
-    // Get all active courses
+  const fetchData = () => {
+    // get all active courses
     fetch(`${process.env.REACT_APP_API_URL}/courses/all`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setCourses(
-          data.map((course) => {
-            return course;
-          })
-        );
 
-        // setCourses(data);
+        const courseArr = data.map((course) => {
+          return course;
+        });
+
+        setCourses(courseArr);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
     <>
       <h1>Courses</h1>
       {user.isAdmin === true ? (
-        <AdminView coursesData={courses} />
+        <AdminView coursesData={courses} fetchData={fetchData} />
       ) : (
         <UserView coursesData={courses} />
       )}
