@@ -19,7 +19,11 @@ export default function AdminView({ coursesData }) {
             <button className="btn btn-primary ">Edit</button>
           </td>
           <td>
-            <button className="btn btn-danger">Archive</button>
+            {course.isActive ? (
+              <button className="btn btn-danger">Archive</button>
+            ) : (
+              <button className="btn btn-success">Activate</button>
+            )}
           </td>
         </tr>
       );
