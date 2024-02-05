@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import CourseCard from "./CourseCard";
+import CourseSearch from "./CourseSearch";
+import CourseSearchByPrice from "./CourseSearchByPrice";
 
 export default function UserView({ coursesData }) {
   const [courses, setCourses] = useState([]);
@@ -7,8 +9,6 @@ export default function UserView({ coursesData }) {
   useEffect(() => {
     const coursesArr = coursesData.map((course) => {
       if (course.isActive == true) {
-        // console.log(course);
-
         return <CourseCard key={course._id} courseProp={course} />;
       } else {
         return null;
@@ -18,5 +18,11 @@ export default function UserView({ coursesData }) {
     setCourses(coursesArr);
   }, [coursesData]);
 
-  return <>{courses}</>;
+  return (
+    <>
+      <CourseSearch />
+      <CourseSearchByPrice />
+      {courses}
+    </>
+  );
 }

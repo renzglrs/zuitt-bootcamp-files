@@ -15,12 +15,21 @@ export default function ArchiveCourse({ course, fetchData }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          Swal.fire({
-            title: "Success!",
-            icon: "success",
-            text: data.message,
-          });
-          fetchData();
+          if (data.message === "Course archived successfully!") {
+            Swal.fire({
+              title: "Success!",
+              icon: "success",
+              text: data.message,
+            });
+            fetchData();
+          } else {
+            Swal.fire({
+              title: "Something went wrong!",
+              icon: "error",
+              text: data.error,
+            });
+            fetchData();
+          }
         });
     }
   };
@@ -36,12 +45,21 @@ export default function ArchiveCourse({ course, fetchData }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          Swal.fire({
-            title: "Success!",
-            icon: "success",
-            text: data.message,
-          });
-          fetchData();
+          if (data.message === "Course activated successfully!") {
+            Swal.fire({
+              title: "Success!",
+              icon: "success",
+              text: data.message,
+            });
+            fetchData();
+          } else {
+            Swal.fire({
+              title: "Something went wrong!",
+              icon: "error",
+              text: data.error,
+            });
+            fetchData();
+          }
         });
     }
   };
