@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const UpdateProfile = ({ fetchData }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
+const UpdateProfile = ({ user, fetchData }) => {
+  const [formData, setFormData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    mobileNo: user.mobileNo,
+  });
 
-  const handleUpdateProfile = async () => {
+  console.log("FETCH");
+  console.log(user);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
     try {
       const token = localStorage.getItem("token"); // Replace with your actual JWT token
       const response = await fetch(`${process.env.REACT_APP_API_URL}/users/profile`, {
@@ -15,12 +29,10 @@ const UpdateProfile = ({ fetchData }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          mobileNo: mobileNo,
-        }),
+        body: JSON.stringify(formData),
       });
+
+      console.log(response)
 
       if (response.ok) {
         Swal.fire({
@@ -47,43 +59,49 @@ const UpdateProfile = ({ fetchData }) => {
   };
 
   return (
-    <div className="container d-flex flex-column gap-3 mb-5 pb-5">
+    <div className="container">
       <h2>Update Profile</h2>
-      <div className="form-group">
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          className="form-control"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          className="form-control"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="mobileNo">Mobile Number:</label>
-        <input
-          type="text"
-          className="form-control"
-          id="mobileNo"
-          value={mobileNo}
-          onChange={(e) => setMobileNo(e.target.value)}
-        />
-      </div>
-      <div>
-        <button className="btn btn-primary d-block" onClick={handleUpdateProfile}>
-          Update Profile
-        </button>
-      </div>
+      <form onSubmit={handleUpdateProfile} className="d-flex flex-column gap-3 mb-5 pb-5">
+        <div className="form-group">
+          <label htmlFor="firstName">First Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="firstName"
+            name="firstName"
+            // value={formData.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="lastName"
+            name="lastName"
+            // value={formData.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="mobileNo">Mobile Number:</label>
+          <input
+            type="text"
+            className="form-control"
+            id="mobileNo"
+            name="mobileNo"
+            // value={formData.mobileNo}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <button className="btn btn-primary" type="submit">
+            Update Profile
+          </button>
+        </div>
+      
+      </form>
     </div>
   );
 };

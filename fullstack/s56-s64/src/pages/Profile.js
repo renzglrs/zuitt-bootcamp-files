@@ -56,7 +56,7 @@ export default function Profile() {
 
       <Row className="pt-4 mt-4">
         <Col>
-          <UpdateProfile fetchData={fetchData} />
+          <UpdateProfile user={getUser} fetchData={fetchData} />
         </Col>
       </Row>
     </>
