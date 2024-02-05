@@ -18,7 +18,7 @@ export default function Courses() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         const courseArr = data.map((course) => {
           return course;

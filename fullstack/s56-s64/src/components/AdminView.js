@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import EditCourse from "./EditCourse";
+import ArchiveCourse from "./ArchiveCourse";
 
 export default function AdminView({ coursesData, fetchData }) {
   const [courses, setCourses] = useState([]);
@@ -20,18 +21,14 @@ export default function AdminView({ coursesData, fetchData }) {
             <EditCourse course={course._id} fetchData={fetchData} />
           </td>
           <td>
-            {course.isActive ? (
-              <button className="btn btn-warning">Archive</button>
-            ) : (
-              <button className="btn btn-success">Activate</button>
-            )}
+            <ArchiveCourse course={course} fetchData={fetchData} />
           </td>
         </tr>
       );
     });
 
     setCourses(courseArr);
-  }, [coursesData]);
+  }, [coursesData, fetchData]);
 
   return (
     <>
