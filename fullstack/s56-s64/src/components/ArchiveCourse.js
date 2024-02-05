@@ -1,11 +1,10 @@
-// import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export default function ArchiveCourse({ course, fetchData }) {
   const courseId = course._id;
 
-  const setToggle = (course) => {
+  const archiveToggle = (course) => {
     if (course.isActive) {
       fetch(`${process.env.REACT_APP_API_URL}/courses/${courseId}/archive`, {
         method: "PATCH",
@@ -23,7 +22,11 @@ export default function ArchiveCourse({ course, fetchData }) {
           });
           fetchData();
         });
-    } else {
+    }
+  };
+
+  const activateToggle = (course) => {
+    if (course.isActive !== true) {
       fetch(`${process.env.REACT_APP_API_URL}/courses/${courseId}/activate`, {
         method: "PATCH",
         headers: {
@@ -43,18 +46,14 @@ export default function ArchiveCourse({ course, fetchData }) {
     }
   };
 
-  const archivetoggle = (course) => {
-    setToggle(course);
-  };
-
   return (
     <>
       {course.isActive ? (
-        <Button variant="danger" onClick={() => archivetoggle(course)}>
+        <Button variant="danger" onClick={() => archiveToggle(course)}>
           Archive
         </Button>
       ) : (
-        <Button variant="success" onClick={() => archivetoggle(course)}>
+        <Button variant="success" onClick={() => activateToggle(course)}>
           Activate
         </Button>
       )}
