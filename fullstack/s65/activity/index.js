@@ -108,7 +108,9 @@ function findHotCategories(items) {
 
     for(let item of items) {
         if(item.stocks == 0){
-            hotCategories.push(item.category);
+            if(!hotCategories.includes(item.category)){
+                hotCategories.push(item.category);
+            }
         }
     }
 
