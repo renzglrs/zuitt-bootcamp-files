@@ -6,7 +6,7 @@ function countLetter(letter, sentence) {
     // Implement input validation to ensure that the sentence parameter is not single character. If it is, return a message, "Invalid sentence input"
     // If letter is a single character, count how many times a letter has occurred in a given sentence then return count.
     // If letter does not occur in the sentence, return undefined.
-    if(letter.length > 1 || letter == "" || letter == undefined) return "Invalid letter input"
+    if(letter.length > 1 || letter == "" || letter == undefined) return undefined
     if(sentence.length == 1) return "Invalid sentence input"
 
 
